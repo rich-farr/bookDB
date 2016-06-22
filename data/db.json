@@ -1,0 +1,6 @@
+{
+	"books": [
+		{"id": 1, "name": "The Great Gatsby", "author": "F. Scott Fitzgerald", "image": "http://www.beautifulbookcovers.com/wp-content/uploads/2013/01/gatsby-original-cover-art.jpg", "year": 1925},
+		{"id": 2, "name": "On the Road", "author": "Jack Kerouac", "image": "https://s-media-cache-ak0.pinimg.com/736x/16/d5/e3/16d5e3ddfd15328412f96366e742c3f5.jpg", "year": 1957}
+	]
+}

@@ -1,9 +1,18 @@
 var express = require('express');
-var router = express.Router();
+var app = express();
+var fs = require('fs')
+var bookObj = fs.readFileSync('data/db.json', 'utf8')
+var path = require('path');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: "Rich's book catalogue" });
+app.get('/', function(req, res) {
+	bookObj = JSON.parse(bookObj)
+	//console.log(books)
+  res.render('index', bookObj)
 });
 
-module.exports = router;
+// router.get('/', function(req, res, next) {
+//   res.render('index', { title: "Rich's book catalogue" });
+// });
+
+module.exports = app;
