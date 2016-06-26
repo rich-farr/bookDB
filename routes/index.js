@@ -7,7 +7,7 @@ var path = require('path');
 /* GET home page. */
 app.get('/', function(req, res) {
 	bookObj = JSON.parse(bookObj)
-	//console.log(books)
+	// console.log(bookObj)
   res.render('index', bookObj)
 });
 
