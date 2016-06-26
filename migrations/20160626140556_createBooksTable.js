@@ -5,6 +5,7 @@ exports.up = function(knex, Promise) {
     table.increments('id').primary
     table.string('title')
     table.integer('year')
+    table.string('image_link')
     table.boolean('have_read')
     table.integer('author_id')
   })
