@@ -1,4 +1,5 @@
-<h1>{{this.title}}</h1>
+<h1>{{this.title}} ({{this.year}})</h1>
+<h3> - {{this.first_name}} {{this.last_name}}</h3>
 <nav>
   <a class="link" href="/books">View all the books</a>
   <a class="link" href="/authors">View all the authors</a>
@@ -6,8 +7,6 @@
 
 <ul>
   <div class="book">
-    <li>Author: {{this.first_name}} {{this.last_name}}</li>
-    <li>Year Released: {{this.year}}</li>
     <li><img src="{{this.image_link}}" /></li>
   </div>
 </ul>

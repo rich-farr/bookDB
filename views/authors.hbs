@@ -1,0 +1,12 @@
+<h1>Here be authors</h1>
+<nav>
+  <a class="link" href="/books">Check out the freakin' books</a>
+</nav>
+
+<ul>
+ {{#each authors}}
+  <div class="author">
+    <li><a href="/authors/{{this.id}}">{{this.first_name}} {{this.last_name}}</a></li>
+  </div>
+ {{/each}}
+</ul>
