@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var fs = require('fs')
-//var bookObj = fs.readFileSync('data/db.json', 'utf8')
 var path = require('path');
 var dbPath = path.join(__dirname, '../dev.sqlite3')
 var knex = require('knex')({
@@ -14,17 +13,21 @@ var knex = require('knex')({
 
 /* GET home page. */
 router.get('/', function(req, res) {
-	knex.from('authors').innerJoin('books', 'authors.id', 'books.author_id')
-		.select('title', 'year', 'first_name', 'last_name')
-		.then(function(keys) {
-			console.log(keys)
+	res.redirect('/home')
+})
 
+router.get('/home', function(req, res) {
+	knex.from('authors').innerJoin('books', 'authors.id', 'books.author_id')
+		.select('title', 'year', 'first_name', 'last_name', 'image_link')
+		.then(function(o) {
+			var bookObj = {"books": o}
+			console.log(bookObj)
+			res.render('index', bookObj)
 		})
-  res.render('index', bookObj)
 });
 
-// router.get('/', function(req, res, next) {
-//   res.render('index', { title: "Rich's book catalogue" });
-// });
+// router.get('/books', function(req, res) {
+
+// })
 
 module.exports = router;

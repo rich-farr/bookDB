@@ -6,10 +6,10 @@
 <ul>
  {{#each books}}
   <div class="book">
-    <li>Name: {{this.name}}</li>
-    <li>Author: {{this.author}}</li>
+    <li>Name: {{this.title}}</li>
+    <li>Author: {{this.first_name}} {{this.last_name}}</li>
     <li>Year Released: {{this.year}}</li>
-    <li><a href="/books/{{this.id}}"><img src="{{this.image}}" /></a></li>
+    <li><a href="/books/{{this.id}}"><img src="{{this.image_link}}" /></a></li>
   </div>
  {{/each}}
 </ul>
