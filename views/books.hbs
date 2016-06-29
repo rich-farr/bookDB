@@ -1,0 +1,15 @@
+<h1>Rich's Book Catalogue</h1>
+<nav>
+  <a class="link" href="/books/new">Add a new freakin' book</a>
+</nav>
+
+<ul>
+ {{#each books}}
+  <div class="book">
+    <li>Name: {{this.title}}</li>
+    <li>Author: {{this.first_name}} {{this.last_name}}</li>
+    <li>Year Released: {{this.year}}</li>
+    <li><a href="/books/{{this.id}}"><img src="{{this.image_link}}" /></a></li>
+  </div>
+ {{/each}}
+</ul>
