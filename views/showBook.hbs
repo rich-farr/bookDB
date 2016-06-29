@@ -1,16 +1,13 @@
-<h1>Rich's Book Catalogue</h1>
+<h1>{{this.title}}</h1>
 <nav>
   <a class="link" href="/books">View all the books</a>
   <a class="link" href="/authors">View all the authors</a>
 </nav>
 
 <ul>
- {{#each books}}
   <div class="book">
-    <li>Name: {{this.title}}</li>
     <li>Author: {{this.first_name}} {{this.last_name}}</li>
     <li>Year Released: {{this.year}}</li>
-    <li><a href="/books/{{this.id}}"><img src="{{this.image_link}}" /></a></li>
+    <li><img src="{{this.image_link}}" /></li>
   </div>
- {{/each}}
 </ul>
