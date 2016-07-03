@@ -11,23 +11,31 @@ var knex = require('knex')({
   useNullAsDefault: true
 })
 
-/* GET home page. */
+/*Redirect to Home Page route*/
 router.get('/', function(req, res) {
 	res.redirect('/home')
 })
 
+/* GET home page. */
 router.get('/home', function(req, res) {
 	knex.from('authors').innerJoin('books', 'authors.id', 'books.author_id')
 		.select('title', 'year', 'first_name', 'last_name', 'image_link')
 		.then(function(o) {
 			var bookObj = {"books": o}
-			console.log(bookObj)
+			//console.log(bookObj)
 			res.render('index', bookObj)
 		})
 });
 
-// router.get('/books', function(req, res) {
-
+// router.get('/home', function(req, res) {
+// 	knex('books')
+// 		.where('id', RANDOM)
+// 		.select('title', 'year', 'image_link')
+// 		.then(function(o) {
+// 			var bookObj = {"books": o}
+// 			console.log(bookObj)
+// 			res.render('index', bookObj)
+// 		})
 // })
 
 module.exports = router;
