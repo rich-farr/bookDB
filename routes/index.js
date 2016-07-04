@@ -19,7 +19,7 @@ router.get('/', function(req, res) {
 /* GET home page. */
 router.get('/home', function(req, res) {
 	knex.from('authors').innerJoin('books', 'authors.id', 'books.author_id')
-		.select('title', 'year', 'first_name', 'last_name', 'image_link')
+		.select('title', 'year', 'first_name', 'last_name', 'isbn')
 		.then(function(o) {
 			var bookObj = {"books": o}
 			//console.log(bookObj)

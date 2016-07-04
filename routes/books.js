@@ -3,6 +3,8 @@ var router = express.Router();
 var fs = require('fs')
 var path = require('path');
 var dbPath = path.join(__dirname, '../dev.sqlite3')
+var callApi = require('../callApi')
+var libThingKey = process.env.LIBRARY_THING_KEY
 var knex = require('knex')({
   client: 'sqlite3',
   connection: {
@@ -20,11 +22,14 @@ router.get('/', function(req, res) {
 			'year',
 			'first_name',
 			'last_name',
-			'image_link',
+			'isbn',
 			'have_read'
 			)
 		.then(function (o) {
 			o.forEach(function (i) {
+				i.key = libThingKey
+				//var extraStuff = callApi(i.isbn)
+				//change "have read?" flag to yes or no:
 				if (i.have_read === 0) {
 					i.have_read = 'No'
 				} else if (i.have_read === 1) {
@@ -44,13 +49,15 @@ router.get('/:id', function (req, res) {
 			'year',
 			'first_name',
 			'last_name',
-			'image_link',
+			'isbn',
 			'have_read'
 			)
 		.where('books.id', req.params.id)
 		.then(function(o) {
-			//console.log(o)
+			//console.log(callApi('isbn'))
 			var thisBook = o[0]
+			thisBook.key = libThingKey
+			//change "have read?" flag to yes or no:
 			if (thisBook.have_read === 0) {
 				thisBook.have_read = 'No'
 			} else if (thisBook.have_read === 1) {
