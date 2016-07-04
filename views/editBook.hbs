@@ -1,0 +1,18 @@
+<h1>Edit this book</h1>
+
+<nav>
+  <a class="link" href="/books/{{this.id}}">Cancel edit</a>
+</nav>
+
+<form class="new_book" id="new_book" action="/books/{{this.id}}" accept-charset="UTF-8" method="post">
+
+<p>
+  <input placeholder="title" type="text" name="title" id="title" value="{{this.title}}"/><br><br>
+  <input placeholder="year" type="text" name="year" id="year" value="{{this.year}}"/><br><br>
+  <input placeholder="first_name" type="text" name="first_name" id="first_name" value="{{this.first_name}}"/><br><br>
+  <input placeholder="last_name" type="text" name="last_name" id="last_name" value="{{this.last_name}}"/><br><br>
+  <input placeholder="have_read" type="text" name="have_read" id="have_read" value="{{this.have_read}}"/><br><br>
+  <input type="submit"  value="Submit changes" />
+</p>
+
+</form>
