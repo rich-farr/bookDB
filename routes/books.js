@@ -13,9 +13,8 @@ var knex = require('knex')({
   useNullAsDefault: true
 })
 
-/* GET books page. */
-router.get('/', function(req, res) {
-	knex.from('authors').innerJoin('books', 'authors.id', 'books.author_id')
+function booksArray() {
+	return knex.from('authors').innerJoin('books', 'authors.id', 'books.author_id')
 		.select(
 			'books.id',
 			'title',
@@ -27,8 +26,8 @@ router.get('/', function(req, res) {
 			)
 		.then(function (o) {
 			o.forEach(function (i) {
+				//add LibraryThing key
 				i.key = libThingKey
-				//var extraStuff = callApi(i.isbn)
 				//change "have read?" flag to yes or no:
 				if (i.have_read === 0) {
 					i.have_read = 'No'
@@ -36,35 +35,92 @@ router.get('/', function(req, res) {
 					i.have_read = 'Yes'
 				}
 			})
-			var booksObj = {"books": o}
-			//console.log(booksObj)
+			return o
+		})
+		.catch(function(error) {
+			console.error(error)
+		})
+	}
+
+
+/* GET books page. */
+router.get('/', function(req, res) {
+	booksArray()
+		.then(function(arr) {
+			var booksObj = {"books": arr}
 			res.render('books', booksObj)
 		})
 })
 
+/* GET individual book */
 router.get('/:id', function (req, res) {
-	knex.from('authors').innerJoin('books', 'authors.id', 'books.author_id')
-		.select(
-			'title',
-			'year',
-			'first_name',
-			'last_name',
-			'isbn',
-			'have_read'
-			)
-		.where('books.id', req.params.id)
-		.then(function(o) {
-			//console.log(callApi('isbn'))
-			var thisBook = o[0]
-			thisBook.key = libThingKey
-			//change "have read?" flag to yes or no:
-			if (thisBook.have_read === 0) {
-				thisBook.have_read = 'No'
-			} else if (thisBook.have_read === 1) {
-				thisBook.have_read = 'Yes'
-			}
+	booksArray()
+		.then(function(arr) {
+			var thisBook = arr[req.params.id - 1]  //need to refactor later to use .where(book.id, req.params.id)
 			res.render('showBook', thisBook)
 		})
 })
+
+// router.get('/edit/:id', function (req, res) {
+// 	knex.from('authors').innerJoin('books', 'authors.id', 'books.author_id')
+// 		.select(
+// 			'books_id',
+// 			'title',
+// 			'year',
+// 			'first_name',
+// 			'last_name',
+// 			'isbn',
+// 			'have_read'
+// 			)
+// 		.where('books.id', req.params.id)
+// 		.then(function(o) {
+// 			//console.log(callApi('isbn'))
+// 			var thisBook = o[0]
+// 			thisBook.key = libThingKey
+// 			//change "have read?" flag to yes or no:
+// 			if (thisBook.have_read === 0) {
+// 				thisBook.have_read = 'No'
+// 			} else if (thisBook.have_read === 1) {
+// 				thisBook.have_read = 'Yes'
+// 			}
+// 			res.render('editBook', thisBook)
+// 		})
+// })
+
+// router.post('/books/:id', function(req,res) {
+// 	knex.from('authors').innerJoin('books', 'authors.id', 'books.author_id')
+// 		.select(
+// 			'books_id',
+// 			'title',
+// 			'year',
+// 			'first_name',
+// 			'last_name',
+// 			'isbn',
+// 			'have_read'
+// 			)
+// 		.where('books.id', req.params.id)
+// 		.then(function(o) {
+// 			//console.log(callApi('isbn'))
+// 			var thisBook = o[0]
+// 			thisBook.key = libThingKey
+// 			//change "have read?" flag to yes or no:
+// 			if (thisBook.have_read === 0) {
+// 				thisBook.have_read = 'No'
+// 			} else if (thisBook.have_read === 1) {
+// 				thisBook.have_read = 'Yes'
+// 			}
+// 			res.render('editBook', thisBook)
+// 		})
+//   var updateBook = req.body
+
+//   var bookFilter = catsObj.cats[req.params.id - 1]
+
+//   bookFilter.title = updateBook.title
+//   bookFilter.year = updateBook.year
+//   bookFilter.first_name = updateBook.first_name
+//   bookFilter.last_name = updateBook.last_name
+//   bookFilter.have_read = updateBook.have_read
+//   res.render('showBook', bookFilter)
+// })
 
 module.exports = router;
