@@ -27,6 +27,7 @@ function booksArray() {
 		.then(function (o) {
 			o.forEach(function (i) {
 				//add LibraryThing key
+				//callApi(i.isbn)
 				i.key = libThingKey
 				//change "have read?" flag to yes or no:
 				if (i.have_read === 0) {

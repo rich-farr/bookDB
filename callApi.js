@@ -14,19 +14,14 @@ var callApi = function(isbn) {
 		if (err) {
 			console.log(err)
 		} else {
-		//console.log(bookKey)
-		// console.log("this is the error", err)
-		//console.log("------------------------------------", res.text)
 		var book = JSON.parse(res.text)
-		if (book.totalItems === 1) {
-			console.log(book.items[0].volumeInfo.title)
-		} else console.log("BUTTHOLES")
-		//var describe = book.items[0].volumeInfo.description
-		//var images = book.items[0].volumeInfo.imageLinks
-
-		// console.log("\nThis is the response", describe)
-		//return res.text
-	}
+		if (book.totalItems === 0) {
+			console.log("NOPE")
+		} else {
+				console.log("YUP", book.items[0].volumeInfo.title)
+				return book.items[0].volumeInfo.description
+			}
+		}
 	})
 
 }

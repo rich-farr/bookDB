@@ -3,15 +3,12 @@
   <a class="link" href="/authors">Check out the freakin' authors</a>
 </nav>
 
-<ul>
  {{#each books}}
   <div class="book">
-    <li>Name: {{this.title}}</li>
-    <li>Author: {{this.first_name}} {{this.last_name}}</li>
-    <li>Year Released: {{this.year}}</li>
-    <li>Read it? {{this.have_read}}</li>
-    <li>{{this.description}}</li>
-    <li><a href="/books/{{this.id}}"><img src="http://covers.librarything.com/devkey/{{this.key}}/medium/isbn/{{this.isbn}}" /></a></li>
+    <h3>{{this.title}} ({{this.year}})</h3>
+    <h5> - {{this.first_name}} {{this.last_name}}</h5>
+    <p>{{this.description}}</p>
+    <p>Read it? {{this.have_read}}</p>
+    <a href="/books/{{this.id}}"><img src="http://covers.librarything.com/devkey/{{this.key}}/medium/isbn/{{this.isbn}}" /></a>
   </div>
  {{/each}}
-</ul>
