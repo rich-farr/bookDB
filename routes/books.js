@@ -86,49 +86,9 @@ router.post('/:id', function(req,res) {
 			'have_read': haveRead,
 			'my_description': myDesc
 		})
-		.then(booksArray()
-			.then(function(arr) {
-				var thisBook = arr[req.params.id - 1]
-				console.log('Here be other stuff', thisBook)
-			  res.render('showBook', thisBook)
-			})
+		.then(
+			res.redirect('/books/' + req.params.id)
 		)
 })
-
-// router.post('/books/:id', function(req,res) {
-// 	knex.from('authors').innerJoin('books', 'authors.id', 'books.author_id')
-// 		.select(
-// 			'books_id',
-// 			'title',
-// 			'year',
-// 			'first_name',
-// 			'last_name',
-// 			'isbn',
-// 			'have_read'
-// 			)
-// 		.where('books.id', req.params.id)
-// 		.then(function(o) {
-// 			//console.log(callApi('isbn'))
-// 			var thisBook = o[0]
-// 			thisBook.key = libThingKey
-// 			//change "have read?" flag to yes or no:
-// 			if (thisBook.have_read === 0) {
-// 				thisBook.have_read = 'No'
-// 			} else if (thisBook.have_read === 1) {
-// 				thisBook.have_read = 'Yes'
-// 			}
-// 			res.render('editBook', thisBook)
-// 		})
-//   var updateBook = req.body
-
-//   var bookFilter = catsObj.cats[req.params.id - 1]
-
-//   bookFilter.title = updateBook.title
-//   bookFilter.year = updateBook.year
-//   bookFilter.first_name = updateBook.first_name
-//   bookFilter.last_name = updateBook.last_name
-//   bookFilter.have_read = updateBook.have_read
-//   res.render('showBook', bookFilter)
-// })
 
 module.exports = router;
