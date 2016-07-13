@@ -24,19 +24,28 @@ function booksArray() {
 			'isbn',
 			'have_read'
 			)
-		.then(function (o) {
-			o.forEach(function (i) {
+		.then(function (books) {
+			books.forEach(function (book) {
 				//add LibraryThing key
-				//callApi(i.isbn)
-				i.key = libThingKey
+				book.key = libThingKey
+				book.description = ''
 				//change "have read?" flag to yes or no:
-				if (i.have_read === 0) {
-					i.have_read = 'No'
-				} else if (i.have_read === 1) {
-					i.have_read = 'Yes'
+				if (book.have_read === 0) {
+					book.have_read = 'No'
+				} else if (book.have_read === 1) {
+					book.have_read = 'Yes'
 				}
 			})
-			return o
+			return books
+		})
+		.then(function (books) {
+			var promises = books.map(function (book) {
+				return callApi(book.isbn)
+				.then(function (description) {
+					book.description = description
+				})
+			})
+			return Promise.all(promises)
 		})
 		.catch(function(error) {
 			console.error(error)
@@ -48,6 +57,7 @@ function booksArray() {
 router.get('/', function(req, res) {
 	booksArray()
 		.then(function(arr) {
+			console.log("AAA", arr)
 			var booksObj = {"books": arr}
 			res.render('books', booksObj)
 		})

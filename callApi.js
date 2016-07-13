@@ -3,30 +3,44 @@ dotenv.load()
 var bookKey = process.env.GOOGLE_BOOKS_KEY
 var request = require('superagent')
 
-
-//GET https://www.googleapis.com/books/v1/volumes?q=flowers+inauthor:keyes&key=bookKey
-
 var callApi = function(isbn) {
 
 	var endPoint = 'https://www.googleapis.com/books/v1/volumes?q=isbn:' + isbn + '&key=' + bookKey
 
-	request.get(endPoint, function (err, res) {
-		if (err) {
-			console.log(err)
-		} else {
-		var book = JSON.parse(res.text)
-		if (book.totalItems === 0) {
-			console.log("NOPE")
-		} else {
+	var promise = new Promise(function(resolve, reject) {
+		request.get(endPoint, function (error, response) {
+			if (error) {
+				reject("Server says NOPE")
+			} else {
+			var book = JSON.parse(response.text)
+			if (book.totalItems === 0) {
+				reject("Google says NOPE")
+			} else {
 				console.log("YUP", book.items[0].volumeInfo.title)
-				return book.items[0].volumeInfo.description
+				resolve(book.items[0].volumeInfo.description)
+				}
 			}
-		}
+		})
 	})
 
+	return promise
+
+// 	request.get(endPoint, function (err, res) {
+// 		promise = new Promise(function(res, rej) {
+// 			if (res.text) {
+// 				var book =JSON.parse(res.text)
+// 				res(book.items[0].volumeInfo.description)
+// 			}
+// 			else {
+// 				rej(Error("NOPE"))
+// 			}
+// 		})
+// 	}
 }
 
 module.exports = callApi;
+
+
 
 // {
 //  "kind": "books#volumes",
