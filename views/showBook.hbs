@@ -1,13 +1,12 @@
-<h1>{{this.title}} ({{this.year}})</h1>
-<h3> - {{this.first_name}} {{this.last_name}}</h3>
 <nav>
   <a class="link" href="/books">View all the books</a>
   <a class="link" href="/authors">View all the authors</a>
 </nav>
 
-<ul>
-  <div class="book">
-    <li><img src="http://covers.librarything.com/devkey/{{this.key}}/medium/isbn/{{this.isbn}}" /></li>
-    <li>Read it? {{this.have_read}}</li>
-  </div>
-</ul>
+<div class="book">
+	<h1>{{this.title}} ({{this.year}})</h1>
+	<h3> - {{this.first_name}} {{this.last_name}}</h3>
+	<p>{{this.description}}</p>
+  <p><img src="http://covers.librarything.com/devkey/{{this.key}}/medium/isbn/{{this.isbn}}" /></p>
+  <p>Read it? {{this.have_read}}</p>
+</div>
