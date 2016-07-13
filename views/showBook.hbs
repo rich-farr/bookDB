@@ -7,8 +7,11 @@
 <div class="book">
 	<h1>{{this.title}} ({{this.year}})</h1>
 	<h3> - {{this.first_name}} {{this.last_name}}</h3>
-	<p>Google says:</p>
-	<p>{{this.description}}</p>
-  <p><img src="http://covers.librarything.com/devkey/{{this.key}}/medium/isbn/{{this.isbn}}" /></p>
   <p>Read it? {{this.have_read}}</p>
+	<p><strong>Google says: </strong> {{this.description}}</p>
+  <p><img src="http://covers.librarything.com/devkey/{{this.key}}/medium/isbn/{{this.isbn}}" /></p>
+	<p><strong>Rich says: </strong> {{this.my_description}}</p>
+	<form action="/books/edit/{{this.id}}">
+	  <input type="submit" value="Edit this book">
+  </form>
 </div>

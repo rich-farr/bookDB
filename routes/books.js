@@ -22,7 +22,8 @@ function booksArray() {
 			'first_name',
 			'last_name',
 			'isbn',
-			'have_read'
+			'have_read',
+			'my_description'
 			)
 		.then(function (books) {
 			books.forEach(function (book) {
@@ -68,31 +69,31 @@ router.get('/:id', function (req, res) {
 		})
 })
 
-// router.get('/edit/:id', function (req, res) {
-// 	knex.from('authors').innerJoin('books', 'authors.id', 'books.author_id')
-// 		.select(
-// 			'books_id',
-// 			'title',
-// 			'year',
-// 			'first_name',
-// 			'last_name',
-// 			'isbn',
-// 			'have_read'
-// 			)
-// 		.where('books.id', req.params.id)
-// 		.then(function(o) {
-// 			//console.log(callApi('isbn'))
-// 			var thisBook = o[0]
-// 			thisBook.key = libThingKey
-// 			//change "have read?" flag to yes or no:
-// 			if (thisBook.have_read === 0) {
-// 				thisBook.have_read = 'No'
-// 			} else if (thisBook.have_read === 1) {
-// 				thisBook.have_read = 'Yes'
-// 			}
-// 			res.render('editBook', thisBook)
-// 		})
-// })
+router.get('/edit/:id', function (req, res) {
+	booksArray()
+		.then(function(arr) {
+			var thisBook = arr[req.params.id - 1]  //need to refactor later to use .where(book.id, req.params.id)
+			res.render('editBook', thisBook)
+		})
+})
+
+router.post('/:id', function(req,res) {
+	var haveRead = parseInt(req.body.have_read)
+	var myDesc = req.body.my_description
+	return knex('books')
+		.where('id', req.params.id)
+		.update({
+			'have_read': haveRead,
+			'my_description': myDesc
+		})
+		.then(booksArray()
+			.then(function(arr) {
+				var thisBook = arr[req.params.id - 1]
+				console.log('Here be other stuff', thisBook)
+			  res.render('showBook', thisBook)
+			})
+		)
+})
 
 // router.post('/books/:id', function(req,res) {
 // 	knex.from('authors').innerJoin('books', 'authors.id', 'books.author_id')

@@ -4,15 +4,19 @@
   <a class="link" href="/books/{{this.id}}">Cancel edit</a>
 </nav>
 
+<div>
+	<h1>{{this.title}} ({{this.year}})</h1>
+	<h3> - {{this.first_name}} {{this.last_name}}</h3>
+</div>
+
 <form class="new_book" id="new_book" action="/books/{{this.id}}" accept-charset="UTF-8" method="post">
 
-<p>
-  <input placeholder="title" type="text" name="title" id="title" value="{{this.title}}"/><br><br>
-  <input placeholder="year" type="text" name="year" id="year" value="{{this.year}}"/><br><br>
-  <input placeholder="first_name" type="text" name="first_name" id="first_name" value="{{this.first_name}}"/><br><br>
-  <input placeholder="last_name" type="text" name="last_name" id="last_name" value="{{this.last_name}}"/><br><br>
-  <input placeholder="have_read" type="text" name="have_read" id="have_read" value="{{this.have_read}}"/><br><br>
-  <input type="submit"  value="Submit changes" />
-</p>
+	<p>
+		Have I read it?<br><br>
+	  <input type="radio" name="have_read" value=1 /> Yes<br><br>
+	  <input type="radio" name="have_read" value=0 /> No<br><br>
+	  <input placeholder="Rich's description" type="text" name="my_description" id="my_desc" value="{{this.my_description}}"/><br><br>
+	  <input type="submit"  value="Submit changes" />
+	</p>
 
 </form>
