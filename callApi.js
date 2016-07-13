@@ -3,21 +3,22 @@ dotenv.load()
 var bookKey = process.env.GOOGLE_BOOKS_KEY
 var request = require('superagent')
 
-var callApi = function(isbn) {
+var callApi = function(book) {
 
-	var endPoint = 'https://www.googleapis.com/books/v1/volumes?q=isbn:' + isbn + '&key=' + bookKey
+	var endPoint = 'https://www.googleapis.com/books/v1/volumes?q=isbn:' + book.isbn + '&key=' + bookKey
 
 	var promise = new Promise(function(resolve, reject) {
 		request.get(endPoint, function (error, response) {
 			if (error) {
 				reject("Server says NOPE")
 			} else {
-			var book = JSON.parse(response.text)
-			if (book.totalItems === 0) {
+				var bookData = JSON.parse(response.text)
+			if (bookData.totalItems === 0) {
 				reject("Google says NOPE")
 			} else {
-				console.log("YUP", book.items[0].volumeInfo.title)
-				resolve(book.items[0].volumeInfo.description)
+					console.log("Google says YUP", bookData.items[0].volumeInfo.title)
+					book.description = bookData.items[0].volumeInfo.description
+					resolve(book)
 				}
 			}
 		})

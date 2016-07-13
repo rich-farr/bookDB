@@ -40,10 +40,7 @@ function booksArray() {
 		})
 		.then(function (books) {
 			var promises = books.map(function (book) {
-				return callApi(book.isbn)
-				.then(function (description) {
-					book.description = description
-				})
+				return callApi(book)
 			})
 			return Promise.all(promises)
 		})
@@ -57,7 +54,6 @@ function booksArray() {
 router.get('/', function(req, res) {
 	booksArray()
 		.then(function(arr) {
-			console.log("AAA", arr)
 			var booksObj = {"books": arr}
 			res.render('books', booksObj)
 		})
