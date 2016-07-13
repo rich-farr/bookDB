@@ -54,6 +54,7 @@ router.get('/:id', function (req, res) {
 				}
 			})
 			var thisAuthor = {"books": books}
+			console.log('first_name')
 			thisAuthor.first_name = books[0].first_name
 			thisAuthor.last_name = books[0].last_name
 			//console.log(thisAuthor)

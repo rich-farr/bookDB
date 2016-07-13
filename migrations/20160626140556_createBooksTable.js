@@ -6,6 +6,7 @@ exports.up = function(knex, Promise) {
     table.string('title')
     table.integer('year')
     table.string('isbn')
+    table.string('my_description')
     table.boolean('have_read')
     table.integer('author_id')
   })
