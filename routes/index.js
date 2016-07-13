@@ -6,6 +6,7 @@ var dotenv = require('dotenv')
 dotenv.load()
 var dbPath = path.join(__dirname, '../dev.sqlite3')
 var libThingKey = process.env.LIBRARY_THING_KEY
+var callApi = require('../callApi')
 var knex = require('knex')({
   client: 'sqlite3',
   connection: {
@@ -31,22 +32,23 @@ router.get('/home', function(req, res) {
 			'isbn',
 			'have_read'
 			)
+		.then(function (books) {
+			var promises = books.map(function (book) {
+				return callApi(book)
+			})
+			return Promise.all(promises)
+		})
 		.then(function(o) {
 			var randomBook = o[Math.floor(Math.random() * o.length)]
 			randomBook.key = libThingKey
+			//change "have read?" flag to yes or no:
+			if (randomBook.have_read === 0) {
+				randomBook.have_read = 'No'
+			} else if (randomBook.have_read === 1) {
+				randomBook.have_read = 'Yes'
+			}
 			res.render('index', randomBook)
 		})
 });
-
-// router.get('/home', function(req, res) {
-// 	knex('books')
-// 		.where('id', RANDOM)
-// 		.select('title', 'year', 'image_link')
-// 		.then(function(o) {
-// 			var bookObj = {"books": o}
-// 			console.log(bookObj)
-// 			res.render('index', bookObj)
-// 		})
-// })
 
 module.exports = router;

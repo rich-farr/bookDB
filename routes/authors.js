@@ -4,6 +4,7 @@ var fs = require('fs')
 var path = require('path');
 var dbPath = path.join(__dirname, '../dev.sqlite3')
 var libThingKey = process.env.LIBRARY_THING_KEY
+var callApi = require('../callApi')
 var knex = require('knex')({
   client: 'sqlite3',
   connection: {
@@ -36,19 +37,25 @@ router.get('/:id', function (req, res) {
 			'have_read'
 			)
 		.where('authors.id', req.params.id)
-		.then(function(o) {
+		.then(function (books) {
+			var promises = books.map(function (book) {
+				return callApi(book)
+			})
+			return Promise.all(promises)
+		})
+		.then(function(books) {
 			//change "have read?" flag to yes or no:
-			o.forEach(function (i) {
-				i.key = libThingKey
-				if (i.have_read === 0) {
-					i.have_read = 'No'
-				} else if (i.have_read === 1) {
-					i.have_read = 'Yes'
+			books.forEach(function (book) {
+				book.key = libThingKey
+				if (book.have_read === 0) {
+					book.have_read = 'No'
+				} else if (book.have_read === 1) {
+					book.have_read = 'Yes'
 				}
 			})
-			var thisAuthor = {"books": o}
-			thisAuthor.first_name = o[0].first_name
-			thisAuthor.last_name = o[0].last_name
+			var thisAuthor = {"books": books}
+			thisAuthor.first_name = books[0].first_name
+			thisAuthor.last_name = books[0].last_name
 			//console.log(thisAuthor)
 			res.render('showAuthor', thisAuthor)
 		})
