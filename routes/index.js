@@ -30,7 +30,8 @@ router.get('/home', function(req, res) {
 			'first_name',
 			'last_name',
 			'isbn',
-			'have_read'
+			'have_read',
+			'my_description'
 			)
 		.then(function (books) {
 			var promises = books.map(function (book) {

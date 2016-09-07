@@ -1,9 +1,5 @@
-<h1>Edit this book</h1>
-
-<nav>
-  <a class="link" href="/books/{{this.id}}">Cancel edit</a>
-</nav>
-
+<div class="col-sm-2 sidenav"></div>
+<div class="col-sm-8 text-left">
 <div>
 	<h1>{{this.title}} ({{this.year}})</h1>
 	<h3> - {{this.first_name}} {{this.last_name}}</h3>
@@ -15,8 +11,11 @@
 		Have I read it?<br><br>
 	  <input type="radio" name="have_read" value=1 /> Yes<br><br>
 	  <input type="radio" name="have_read" value=0 /> No<br><br>
-	  <input placeholder="Rich's description" type="text" name="my_description" id="my_desc" value="{{this.my_description}}"/><br><br>
+	  <textarea placeholder="Rich's description" rows="10" cols="50" name="my_description" id="my_desc">{{this.my_description}}</textarea><br>
 	  <input type="submit"  value="Submit changes" />
+	  <a class="link" href="/books/{{this.id}}">Cancel edit</a>
 	</p>
 
 </form>
+</div>
+<div class="col-sm-2 sidenav"></div>

@@ -1,13 +1,34 @@
-<h1>Rich's Book Catalogue</h1>
-<nav>
-  <a class="link" href="/books">View all books</a>
-  <a class="link" href="/authors">View all authors</a>
-</nav>
 
-<div class="book">
-	<h3>{{this.title}} ({{this.year}})</h3>
-	<h5>- {{this.first_name}} {{this.last_name}}</h5>
-	<p><strong>Google says: </strong> {{this.description}}</p>
-  <p><img src="http://covers.librarything.com/devkey/{{this.key}}/medium/isbn/{{this.isbn}}" /></p>
-  <p>Read it? {{this.have_read}}</p>
+
+
+<div class="container-fluid text-center">
+  <div class="row content">
+    <div class="col-sm-2 sidenav">
+      <div id="about">
+      	Welcome to Rich's personal project at EDA! On this page you'll find a random book from my collection. Click on the cover image to see the detail, or follow the links above.
+      </div>
+
+    </div>
+    <div class="col-sm-8 text-left">
+	    <div class="book">
+	    	<div class="header">
+		    	<h3>{{this.title}} ({{this.year}})</h3>
+		    	<h5>- {{this.first_name}} {{this.last_name}}</h5>
+	    	</div>
+	    	<div class="read-it">
+		      <p>Read it? {{this.have_read}}</p>
+	      </div>
+	      <div class="google-description">
+		    	<p><strong>Google says: </strong> {{this.description}}</p>
+		    </div>
+		    <div class="image-link">
+		      <a href="/books/{{this.id}}"><img src="http://covers.librarything.com/devkey/{{this.key}}/medium/isbn/{{this.isbn}}" /></a>
+	      </div>
+	      <div class="rich-description">
+		      <p><strong>Rich says: </strong> {{this.my_description}}</p>
+	      </div>
+      </div>
+    </div>
+    <div class="col-sm-2 sidenav"></div>
+  </div>
 </div>

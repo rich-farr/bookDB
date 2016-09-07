@@ -25,18 +25,6 @@ var callApi = function(book) {
 	})
 
 	return promise
-
-// 	request.get(endPoint, function (err, res) {
-// 		promise = new Promise(function(res, rej) {
-// 			if (res.text) {
-// 				var book =JSON.parse(res.text)
-// 				res(book.items[0].volumeInfo.description)
-// 			}
-// 			else {
-// 				rej(Error("NOPE"))
-// 			}
-// 		})
-// 	}
 }
 
 module.exports = callApi;

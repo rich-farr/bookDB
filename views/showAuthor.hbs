@@ -1,8 +1,5 @@
-<nav>
-  <a class="link" href="/">Home</a>
-  <a class="link" href="/books">View all books</a>
-  <a class="link" href="/authors">View all authors</a>
-</nav>
+<div class="col-sm-2 sidenav"></div>
+<div class="col-sm-8 text-left">
 <h1>{{this.first_name}} {{this.last_name}}</h1>
 
 {{#each books}}
@@ -13,3 +10,5 @@
   <a href="/books/{{this.id}}"><img src="http://covers.librarything.com/devkey/{{this.key}}/medium/isbn/{{this.isbn}}" /></a>
 </div>
 {{/each}}
+</div>
+<div class="col-sm-2 sidenav"></div>
